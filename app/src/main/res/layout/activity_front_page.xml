@@ -104,6 +104,7 @@
                     android:id="@+id/b5"
                     style="@style/WhiteKey"
                     android:layout_height="match_parent" />
+
             </LinearLayout>
 
             <!-- Black keys positioned on top of white keys -->
@@ -120,36 +121,13 @@
                     android:layout_weight="0.5" />
 
                 <ImageButton
-                    android:id="@+id/csharp4"
+                    android:id="@+id/c4sharp"
                     style="@style/BlackKey"
                     android:layout_height="130dp"
                     android:layout_weight="1" />
 
                 <ImageButton
-                    android:id="@+id/dsharp4"
-                    style="@style/BlackKey"
-                    android:layout_height="130dp"
-                    android:layout_weight="1" />
-
-                <Space
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1" />
-
-                <ImageButton
-                    android:id="@+id/fsharp4"
-                    style="@style/BlackKey"
-                    android:layout_height="130dp"
-                    android:layout_weight="1" />
-
-                <ImageButton
-                    android:id="@+id/gsharp4"
-                    style="@style/BlackKey"
-                    android:layout_height="130dp"
-                    android:layout_weight="1" />
-
-                <ImageButton
-                    android:id="@+id/asharp4"
+                    android:id="@+id/d4sharp"
                     style="@style/BlackKey"
                     android:layout_height="130dp"
                     android:layout_weight="1" />
@@ -160,13 +138,19 @@
                     android:layout_weight="1" />
 
                 <ImageButton
-                    android:id="@+id/csharp5"
+                    android:id="@+id/f4sharp"
                     style="@style/BlackKey"
                     android:layout_height="130dp"
                     android:layout_weight="1" />
 
                 <ImageButton
-                    android:id="@+id/dsharp5"
+                    android:id="@+id/g4sharp"
+                    style="@style/BlackKey"
+                    android:layout_height="130dp"
+                    android:layout_weight="1" />
+
+                <ImageButton
+                    android:id="@+id/a4sharp"
                     style="@style/BlackKey"
                     android:layout_height="130dp"
                     android:layout_weight="1" />
@@ -177,19 +161,36 @@
                     android:layout_weight="1" />
 
                 <ImageButton
-                    android:id="@+id/fsharp5"
+                    android:id="@+id/c5sharp"
                     style="@style/BlackKey"
                     android:layout_height="130dp"
                     android:layout_weight="1" />
 
                 <ImageButton
-                    android:id="@+id/gsharp5"
+                    android:id="@+id/d5sharp"
+                    style="@style/BlackKey"
+                    android:layout_height="130dp"
+                    android:layout_weight="1" />
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+
+                <ImageButton
+                    android:id="@+id/f5sharp"
                     style="@style/BlackKey"
                     android:layout_height="130dp"
                     android:layout_weight="1" />
 
                 <ImageButton
-                    android:id="@+id/asharp5"
+                    android:id="@+id/g5sharp"
+                    style="@style/BlackKey"
+                    android:layout_height="130dp"
+                    android:layout_weight="1" />
+
+                <ImageButton
+                    android:id="@+id/a5sharp"
                     style="@style/BlackKey"
                     android:layout_height="130dp"
                     android:layout_weight="1" />
