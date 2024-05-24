@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".FrontPage">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="#DC323133"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        android:title="Piano" />
+
+    <LinearLayout
+        android:id="@+id/pianoKeysLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="85dp"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical">
+
+        <!-- Container for white and black keys -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="220dp"
+            android:layout_marginTop="25dp">
+
+            <!-- White keys row -->
+            <LinearLayout
+                android:id="@+id/whiteKeysRow"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:id="@+id/c4"
+                    style="@style/WhiteKey"
+                    android:layout_height="match_parent" />
+
+                <ImageButton
+                    android:id="@+id/d4"
+                    style="@style/WhiteKey"
+                    android:layout_height="match_parent" />
+
+                <ImageButton
+                    android:id="@+id/e4"
+                    style="@style/WhiteKey"
+                    android:layout_height="match_parent" />
+
+                <ImageButton
+                    android:id="@+id/f4"
+                    style="@style/WhiteKey"
+                    android:layout_height="match_parent" />
+
+                <ImageButton
+                    android:id="@+id/g4"
+                    style="@style/WhiteKey"
+                    android:layout_height="match_parent" />
+
+                <ImageButton
+                    android:id="@+id/a4"
+                    style="@style/WhiteKey"
+                    android:layout_height="match_parent" />
+
+                <ImageButton
+                    android:id="@+id/b4"
+                    style="@style/WhiteKey"
+                    android:layout_height="match_parent" />
+
+                <ImageButton
+                    android:id="@+id/c5"
+                    style="@style/WhiteKey"
+                    android:layout_height="match_parent" />
+
+                <ImageButton
+                    android:id="@+id/d5"
+                    style="@style/WhiteKey"
+                    android:layout_height="match_parent" />
+
+                <ImageButton
+                    android:id="@+id/e5"
+                    style="@style/WhiteKey"
+                    android:layout_height="match_parent" />
+
+                <ImageButton
+                    android:id="@+id/f5"
+                    style="@style/WhiteKey"
+                    android:layout_height="match_parent" />
+
+                <ImageButton
+                    android:id="@+id/g5"
+                    style="@style/WhiteKey"
+                    android:layout_height="match_parent" />
+
+                <ImageButton
+                    android:id="@+id/a5"
+                    style="@style/WhiteKey"
+                    android:layout_height="match_parent" />
+
+                <ImageButton
+                    android:id="@+id/b5"
+                    style="@style/WhiteKey"
+                    android:layout_height="match_parent" />
+            </LinearLayout>
+
+            <!-- Black keys positioned on top of white keys -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal">
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5" />
+
+                <ImageButton
+                    android:id="@+id/csharp4"
+                    style="@style/BlackKey"
+                    android:layout_height="130dp"
+                    android:layout_weight="1" />
+
+                <ImageButton
+                    android:id="@+id/dsharp4"
+                    style="@style/BlackKey"
+                    android:layout_height="130dp"
+                    android:layout_weight="1" />
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+
+                <ImageButton
+                    android:id="@+id/fsharp4"
+                    style="@style/BlackKey"
+                    android:layout_height="130dp"
+                    android:layout_weight="1" />
+
+                <ImageButton
+                    android:id="@+id/gsharp4"
+                    style="@style/BlackKey"
+                    android:layout_height="130dp"
+                    android:layout_weight="1" />
+
+                <ImageButton
+                    android:id="@+id/asharp4"
+                    style="@style/BlackKey"
+                    android:layout_height="130dp"
+                    android:layout_weight="1" />
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+
+                <ImageButton
+                    android:id="@+id/csharp5"
+                    style="@style/BlackKey"
+                    android:layout_height="130dp"
+                    android:layout_weight="1" />
+
+                <ImageButton
+                    android:id="@+id/dsharp5"
+                    style="@style/BlackKey"
+                    android:layout_height="130dp"
+                    android:layout_weight="1" />
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+
+                <ImageButton
+                    android:id="@+id/fsharp5"
+                    style="@style/BlackKey"
+                    android:layout_height="130dp"
+                    android:layout_weight="1" />
+
+                <ImageButton
+                    android:id="@+id/gsharp5"
+                    style="@style/BlackKey"
+                    android:layout_height="130dp"
+                    android:layout_weight="1" />
+
+                <ImageButton
+                    android:id="@+id/asharp5"
+                    style="@style/BlackKey"
+                    android:layout_height="130dp"
+                    android:layout_weight="1" />
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5" />
+            </LinearLayout>
+        </RelativeLayout>
+    </LinearLayout>
+
+
+    <ImageButton
+        android:id="@+id/leftArrow"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_below="@id/toolbar"
+        android:layout_alignParentLeft="true"
+        android:rotationY="180"
+        android:scaleType="fitCenter"
+        android:src="@drawable/move_keys"
+        android:text="Left" />
+
+    <ImageButton
+        android:id="@+id/rightArrow"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_below="@id/toolbar"
+        android:scaleType="fitCenter"
+        android:src="@drawable/move_keys"
+        android:layout_alignParentRight="true" />
+
+
+
+
+</RelativeLayout>
+
+
