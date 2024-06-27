@@ -4,10 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.media.SoundPool;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
-import android.view.DragEvent;
 import android.view.View;
-import android.widget.ImageButton;
 import android.widget.SeekBar;
 
 import java.util.HashMap;
@@ -15,20 +14,38 @@ import java.util.Map;
 
 public class FrontPageActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private float volumeLeft=1;
-    private float volumeRight=1;
+    private float volumeLeft=0.5f;
+    private float volumeRight=0.5f;
     private SoundPool soundPool;
     private float floatSpeed = 1.0f;
 
-    private Integer[] arrBtnId = {R.id.c4, R.id.d4,
-            R.id.e4,R.id.f4,R.id.g4,R.id.a4,R.id.b4};
+    private Integer[] arrBtnId = {R.id.c3, R.id.d3,
+            R.id.e3,R.id.f3,R.id.g3,R.id.a3,R.id.b3,R.id.c4,R.id.d4,R.id.e4,R.id.f4,R.id.g4,R.id.a4,R.id.b4};
     private Integer[] arrTones = {R.raw.c3, R.raw.d3,
-            R.raw.e3,R.raw.f3,R.raw.g3,R.raw.a3,R.raw.b3};
+            R.raw.e3,R.raw.f3,R.raw.g3,R.raw.a3,R.raw.b3,R.id.c4,R.id.d4,R.id.e4,R.id.f4,R.id.g4,R.id.a4,R.id.b4};
 
     private Integer[] arrSoundId = new Integer[7];
 
     private Map<Integer,Integer> map=new HashMap<>();
     private Map<String,Integer> songMap=new HashMap<>();
+
+    String[] notes;
+    int i = 0;
+    Handler timerHandler = new Handler();
+    Runnable timerRunnable = new Runnable() {
+        @Override
+        public void run() {
+            if (i < notes.length){
+                int k = songMap.get(notes[i]);
+                soundPool.play(arrSoundId[songMap.get(notes[i])],1,1,1,0,floatSpeed);
+                i++;
+                timerHandler.postDelayed(this, 500);
+            }
+            else {
+                timerHandler.removeCallbacks(timerRunnable);
+            }
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,14 +65,16 @@ public class FrontPageActivity extends AppCompatActivity implements View.OnClick
         for(int i=0;i<arrBtnId.length;i++){
             map.put(arrBtnId[i],i);
         }
-        songMap.put("c4",0);
-        songMap.put("d4",1);
-        songMap.put("e4",2);
-        String[] nots=new String[]{"c4","d4","e4"};
+        songMap.put("c3",0);
+        songMap.put("d3",1);
+        songMap.put("e3",2);
+        notes=new String[]{"c3","d3","e3"};
+        timerHandler.postDelayed(timerRunnable, 0);
 
-        for(int i=0;i< nots.length;i++){
-            int k = songMap.get(nots[i]);
-            soundPool.play(arrSoundId[songMap.get(nots[i])],1,1,1,0,floatSpeed);
+
+        for(int i=0;i< notes.length;i++){
+            int k = songMap.get(notes[i]);
+            soundPool.play(arrSoundId[songMap.get(notes[i])],1,1,1,0,floatSpeed);
         }
 
         SeekBar sb = findViewById(R.id.seekBar);

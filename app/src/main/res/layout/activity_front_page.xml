@@ -38,6 +38,41 @@
                 android:orientation="horizontal">
 
                 <ImageButton
+                    android:id="@+id/c3"
+                    style="@style/WhiteKey"
+                    android:layout_height="match_parent" />
+
+                <ImageButton
+                    android:id="@+id/d3"
+                    style="@style/WhiteKey"
+                    android:layout_height="match_parent" />
+
+                <ImageButton
+                    android:id="@+id/e3"
+                    style="@style/WhiteKey"
+                    android:layout_height="match_parent" />
+
+                <ImageButton
+                    android:id="@+id/f3"
+                    style="@style/WhiteKey"
+                    android:layout_height="match_parent" />
+
+                <ImageButton
+                    android:id="@+id/g3"
+                    style="@style/WhiteKey"
+                    android:layout_height="match_parent" />
+
+                <ImageButton
+                    android:id="@+id/a3"
+                    style="@style/WhiteKey"
+                    android:layout_height="match_parent" />
+
+                <ImageButton
+                    android:id="@+id/b3"
+                    style="@style/WhiteKey"
+                    android:layout_height="match_parent" />
+
+                <ImageButton
                     android:id="@+id/c4"
                     style="@style/WhiteKey"
                     android:layout_height="match_parent" />
@@ -72,41 +107,6 @@
                     style="@style/WhiteKey"
                     android:layout_height="match_parent" />
 
-                <ImageButton
-                    android:id="@+id/c5"
-                    style="@style/WhiteKey"
-                    android:layout_height="match_parent" />
-
-                <ImageButton
-                    android:id="@+id/d5"
-                    style="@style/WhiteKey"
-                    android:layout_height="match_parent" />
-
-                <ImageButton
-                    android:id="@+id/e5"
-                    style="@style/WhiteKey"
-                    android:layout_height="match_parent" />
-
-                <ImageButton
-                    android:id="@+id/f5"
-                    style="@style/WhiteKey"
-                    android:layout_height="match_parent" />
-
-                <ImageButton
-                    android:id="@+id/g5"
-                    style="@style/WhiteKey"
-                    android:layout_height="match_parent" />
-
-                <ImageButton
-                    android:id="@+id/a5"
-                    style="@style/WhiteKey"
-                    android:layout_height="match_parent" />
-
-                <ImageButton
-                    android:id="@+id/b5"
-                    style="@style/WhiteKey"
-                    android:layout_height="match_parent" />
-
             </LinearLayout>
 
             <!-- Black keys positioned on top of white keys -->
@@ -123,36 +123,13 @@
                     android:layout_weight="0.5" />
 
                 <ImageButton
-                    android:id="@+id/c4sharp"
+                    android:id="@+id/db3"
                     style="@style/BlackKey"
                     android:layout_height="130dp"
                     android:layout_weight="1" />
 
                 <ImageButton
-                    android:id="@+id/d4sharp"
-                    style="@style/BlackKey"
-                    android:layout_height="130dp"
-                    android:layout_weight="1" />
-
-                <Space
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1" />
-
-                <ImageButton
-                    android:id="@+id/f4sharp"
-                    style="@style/BlackKey"
-                    android:layout_height="130dp"
-                    android:layout_weight="1" />
-
-                <ImageButton
-                    android:id="@+id/g4sharp"
-                    style="@style/BlackKey"
-                    android:layout_height="130dp"
-                    android:layout_weight="1" />
-
-                <ImageButton
-                    android:id="@+id/a4sharp"
+                    android:id="@+id/eb3"
                     style="@style/BlackKey"
                     android:layout_height="130dp"
                     android:layout_weight="1" />
@@ -163,13 +140,19 @@
                     android:layout_weight="1" />
 
                 <ImageButton
-                    android:id="@+id/c5sharp"
+                    android:id="@+id/gb3"
                     style="@style/BlackKey"
                     android:layout_height="130dp"
                     android:layout_weight="1" />
 
                 <ImageButton
-                    android:id="@+id/d5sharp"
+                    android:id="@+id/ab3"
+                    style="@style/BlackKey"
+                    android:layout_height="130dp"
+                    android:layout_weight="1" />
+
+                <ImageButton
+                    android:id="@+id/bb3"
                     style="@style/BlackKey"
                     android:layout_height="130dp"
                     android:layout_weight="1" />
@@ -180,19 +163,36 @@
                     android:layout_weight="1" />
 
                 <ImageButton
-                    android:id="@+id/f5sharp"
+                    android:id="@+id/db4"
                     style="@style/BlackKey"
                     android:layout_height="130dp"
                     android:layout_weight="1" />
 
                 <ImageButton
-                    android:id="@+id/g5sharp"
+                    android:id="@+id/eb4"
+                    style="@style/BlackKey"
+                    android:layout_height="130dp"
+                    android:layout_weight="1" />
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+
+                <ImageButton
+                    android:id="@+id/gb4"
                     style="@style/BlackKey"
                     android:layout_height="130dp"
                     android:layout_weight="1" />
 
                 <ImageButton
-                    android:id="@+id/a5sharp"
+                    android:id="@+id/ab4"
+                    style="@style/BlackKey"
+                    android:layout_height="130dp"
+                    android:layout_weight="1" />
+
+                <ImageButton
+                    android:id="@+id/bb4"
                     style="@style/BlackKey"
                     android:layout_height="130dp"
                     android:layout_weight="1" />
