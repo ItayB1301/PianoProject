@@ -22,9 +22,9 @@ public class FrontPageActivity extends AppCompatActivity implements View.OnClick
     private Integer[] arrBtnId = {R.id.c3, R.id.d3,
             R.id.e3,R.id.f3,R.id.g3,R.id.a3,R.id.b3,R.id.c4,R.id.d4,R.id.e4,R.id.f4,R.id.g4,R.id.a4,R.id.b4};
     private Integer[] arrTones = {R.raw.c3, R.raw.d3,
-            R.raw.e3,R.raw.f3,R.raw.g3,R.raw.a3,R.raw.b3,R.id.c4,R.id.d4,R.id.e4,R.id.f4,R.id.g4,R.id.a4,R.id.b4};
+            R.raw.e3,R.raw.f3,R.raw.g3,R.raw.a3,R.raw.b3,R.raw.c4,R.raw.d4,R.raw.e4,R.raw.f4,R.raw.g4,R.raw.a4,R.raw.b4};
 
-    private Integer[] arrSoundId = new Integer[7];
+    private Integer[] arrSoundId = new Integer[14];
 
     private Map<Integer,Integer> map=new HashMap<>();
     private Map<String,Integer> songMap=new HashMap<>();

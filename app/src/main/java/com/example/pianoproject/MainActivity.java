@@ -3,6 +3,7 @@ package com.example.pianoproject;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.media.MediaPlayer;
 import android.media.SoundPool;
 import android.os.Bundle;
@@ -12,16 +13,36 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
+
+    private SharedPreferences sp;
     MediaPlayer mediaPlayer;
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mediaPlayer.stop();
+        mediaPlayer.release();
+
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        sp= getSharedPreferences("UserName",MODE_PRIVATE);
+        String st=sp.getString("uname","");
+        if (!st.equals("")){
+            Intent intent =new Intent(MainActivity.this, FrontPageActivity.class);
+            startActivity(intent);
+            finish();
+        }
+
+
+
         //media player with a song
         mediaPlayer=MediaPlayer.create(getApplicationContext(),R.raw.opening_music);
         mediaPlayer.setVolume(0.2f,0.2f);
-        mediaPlayer.start();
+        //mediaPlayer.start();
 
 
         EditText name=(EditText) findViewById(R.id.et);
@@ -31,10 +52,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(!name.getText().toString().equals("")){
-                    startActivity(new Intent(MainActivity.this, FrontPageActivity.class));
-                    mediaPlayer.stop();
-                    mediaPlayer.release();
+                    SharedPreferences.Editor editor=sp.edit();
+                    editor.putString("uname",name.getText().toString());
+                    editor.apply();
+                    Intent intent =new Intent(MainActivity.this, FrontPageActivity.class);
+                    startActivity(intent);
                     finish();
+
 
                 }
                 else{
