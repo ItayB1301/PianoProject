@@ -13,7 +13,25 @@
         android:layout_height="?attr/actionBarSize"
         android:background="#DC323133"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        android:title="Piano" />
+        android:title="Piano">
+
+        <ImageView
+            android:id="@+id/rec"
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:scaleType="centerCrop"
+            app:srcCompat="@drawable/rec" />
+
+        <ImageView
+            android:id="@+id/helpbutton"
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:scaleType="centerCrop"
+            app:srcCompat="@drawable/helpbutton" />
+
+
+    </androidx.appcompat.widget.Toolbar>
+
 
     <LinearLayout
         android:id="@+id/pianoKeysLayout"
@@ -119,7 +137,9 @@
                     android:id="@+id/b4"
                     style="@style/WhiteKey"
                     android:layout_height="match_parent"
-                    android:background="@drawable/bkg"/>
+                    android:background="@drawable/normal"/>
+
+
 
             </LinearLayout>
 
