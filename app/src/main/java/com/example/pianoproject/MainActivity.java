@@ -16,6 +16,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //media player with a song
+
         EditText name=(EditText) findViewById(R.id.et);
         Button btn=findViewById(R.id.button);
 
@@ -23,7 +25,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(!name.getText().toString().equals("")){
-                    startActivity(new Intent(MainActivity.this, FrontPage.class));
+                    startActivity(new Intent(MainActivity.this, FrontPageActivity.class));
+                    finish();
 
                 }
                 else{
