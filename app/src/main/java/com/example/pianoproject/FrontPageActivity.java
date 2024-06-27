@@ -20,11 +20,11 @@ public class FrontPageActivity extends AppCompatActivity implements View.OnClick
     private float floatSpeed = 1.0f;
 
     private Integer[] arrBtnId = {R.id.c3, R.id.d3,
-            R.id.e3,R.id.f3,R.id.g3,R.id.a3,R.id.b3,R.id.c4,R.id.d4,R.id.e4,R.id.f4,R.id.g4,R.id.a4,R.id.b4};
+            R.id.e3,R.id.f3,R.id.g3,R.id.a3,R.id.b3,R.id.c4,R.id.d4,R.id.e4,R.id.f4,R.id.g4,R.id.a4,R.id.b4,R.id.db3,R.id.eb3,R.id.gb3,R.id.ab3,R.id.bb3,R.id.db4,R.id.eb4,R.id.gb4,R.id.ab4,R.id.bb4};
     private Integer[] arrTones = {R.raw.c3, R.raw.d3,
-            R.raw.e3,R.raw.f3,R.raw.g3,R.raw.a3,R.raw.b3,R.raw.c4,R.raw.d4,R.raw.e4,R.raw.f4,R.raw.g4,R.raw.a4,R.raw.b4};
+            R.raw.e3,R.raw.f3,R.raw.g3,R.raw.a3,R.raw.b3,R.raw.c4,R.raw.d4,R.raw.e4,R.raw.f4,R.raw.g4,R.raw.a4,R.raw.b4,R.raw.db3,R.raw.eb3,R.raw.gb3,R.raw.ab3,R.raw.bb3,R.raw.db4,R.raw.eb4,R.raw.gb4,R.raw.ab4,R.raw.bb4};
 
-    private Integer[] arrSoundId = new Integer[14];
+    private Integer[] arrSoundId = new Integer[24];
 
     private Map<Integer,Integer> map=new HashMap<>();
     private Map<String,Integer> songMap=new HashMap<>();
