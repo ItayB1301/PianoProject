@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "440547796692",
+    "project_id": "pianoproject-itay",
+    "storage_bucket": "pianoproject-itay.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:440547796692:android:e8f0a896bf4a8a1aaafd41",
+        "android_client_info": {
+          "package_name": "com.example.pianoproject"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCgjrbBaVyd6mKvUIUqjFL3FBxd7HfGgEQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

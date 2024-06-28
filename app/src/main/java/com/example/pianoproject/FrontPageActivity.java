@@ -46,18 +46,30 @@ public class FrontPageActivity extends AppCompatActivity
 
     String[] tune;
     int i = 0;
+    int last=-1;
     Handler timerHandler = new Handler();
     Runnable timerRunnable = new Runnable() {
         @Override
         public void run() {
             if (i < tune.length){
                 int k = notesMap.get(tune[i]);
+                if(last!=-1){
+                    ImageButton ib1=findViewById(last);
+                    ib1.setImageResource(0);
+                }
+                int id=arrBtnId[k];
+                ImageButton ib=findViewById(id);
+                last=id;
+                ib.setImageResource(R.drawable.blue);
                 soundPool.play(arrSoundId[notesMap.get(tune[i])],1,1,1,0,floatSpeed);
                 i++;
                 timerHandler.postDelayed(this, 250);
+
             }
             else {
                 timerHandler.removeCallbacks(timerRunnable);
+                ImageButton ib1=findViewById(last);
+                ib1.setImageResource(0);
             }
         }
     };
@@ -138,7 +150,7 @@ public class FrontPageActivity extends AppCompatActivity
     private SoundPool createSoundPool() {
         SoundPool soundPool;
         SoundPool.Builder builder = new SoundPool.Builder();
-        builder.setMaxStreams(4);
+        builder.setMaxStreams(6);
         soundPool = builder.build();
         cnt = 0;
         for (int i = 0; i < arrSoundId.length; i++) {
@@ -203,12 +215,16 @@ public class FrontPageActivity extends AppCompatActivity
         Log.d("TOUCH", event.toString());
         int pos = map.get(v.getId());
         if (event.getAction() == MotionEvent.ACTION_DOWN){
-            v.setBackgroundColor(Color.BLUE);
+            ImageButton aButton = (ImageButton)v;
+            aButton.setImageResource(R.drawable.blue);
             soundPool.play(arrSoundId[pos ],volumeLeft,volumeRight,1,0,floatSpeed);
         }
         else if (event.getAction()== MotionEvent.ACTION_UP){
-            v.setBackgroundColor(Color.WHITE);
+            ImageButton aButton = (ImageButton)v;
+            aButton.setImageResource(0);
         }
+
+
         return false;
     }
 
