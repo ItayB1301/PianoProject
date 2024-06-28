@@ -11,8 +11,11 @@ import android.os.Handler;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.SeekBar;
+import android.widget.Toast;
 
 
 import java.util.HashMap;
@@ -22,7 +25,7 @@ public class FrontPageActivity extends AppCompatActivity
         implements View.OnClickListener, SoundPool.OnLoadCompleteListener,
         View.OnTouchListener {
 
-
+    private boolean off=true;
     private float volumeLeft=0.5f;
     private float volumeRight=0.5f;
     private SoundPool soundPool;
@@ -92,6 +95,7 @@ public class FrontPageActivity extends AppCompatActivity
         }
 
 
+
         for(int i=0;i<arrBtnId.length;i++){
             map.put(arrBtnId[i],i);
         }
@@ -102,12 +106,19 @@ public class FrontPageActivity extends AppCompatActivity
 
         SeekBar sb = findViewById(R.id.seekBar);
         sb.setProgress((int)(volumeLeft * 100));
+
+        ImageView volume=findViewById(R.id.volume);
         sb.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 Log.e("FRONT", ""+progress);
                 volumeLeft = progress/100.0f;
                 volumeRight = progress/100.0f;
+                if(progress==0)
+                    volume.setImageResource(R.drawable.volume_off);
+                else
+                    volume.setImageResource(R.drawable.volume);
+
             }
 
             @Override
@@ -121,22 +132,34 @@ public class FrontPageActivity extends AppCompatActivity
             }
         });
 
+        ImageButton record=findViewById(R.id.rec);
+        record.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ImageButton recordBtn = (ImageButton)v;
+                if(off) {
+                    recordBtn.setImageResource(R.drawable.rec_active);
+                    Toast.makeText(FrontPageActivity.this,"Recording has Started", Toast.LENGTH_SHORT).show();
+                }
+
+                else if (!off) {
+                    recordBtn.setImageResource(R.drawable.rec);
+                    Toast.makeText(FrontPageActivity.this,"Recording has Stopped", Toast.LENGTH_SHORT).show();
+                }
+
+                off = !off;
+            }
+        });
     }
 
     @Override
     public void onClick(View v) {
+
+
         int pos = map.get(v.getId());
-//        ImageButton ib = (ImageButton) v;
-//
-//        if (pressed[pos]) {
-//            ib.setBackgroundColor(Color.GRAY);
-//        }
-//        else {
-//            ib.setBackgroundColor(Color.WHITE);
-//        }
-//        pressed[pos] = !pressed[pos];
         v.setBackgroundColor(Color.GRAY);
-        //soundPool.play(arrSoundId[pos ],volumeLeft,volumeRight,1,0,floatSpeed);
+
+
     }
 
 

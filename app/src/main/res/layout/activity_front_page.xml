@@ -11,21 +11,24 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="#DC323133"
+        android:background="#303030"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         android:title="Piano">
 
-        <ImageView
+        <ImageButton
             android:id="@+id/rec"
             android:layout_width="70dp"
             android:layout_height="wrap_content"
+            android:background="#303030"
+            android:scrollbarSize="1dp"
             android:scaleType="centerCrop"
             app:srcCompat="@drawable/rec" />
 
-        <ImageView
+        <ImageButton
             android:id="@+id/helpbutton"
             android:layout_width="70dp"
             android:layout_height="wrap_content"
+            android:background="#303030"
             android:scaleType="centerCrop"
             app:srcCompat="@drawable/helpbutton" />
 
@@ -254,6 +257,16 @@
         android:max="100"
         android:layout_width="200dp"
         android:layout_height="60dp" />
+
+    <ImageView
+        android:id="@+id/volume"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_below="@id/toolbar"
+        android:layout_marginTop="8dp"
+        android:layout_toLeftOf="@id/seekBar"
+        android:scaleType="centerCrop"
+        android:src="@drawable/volume" />
 
 
 </RelativeLayout>
