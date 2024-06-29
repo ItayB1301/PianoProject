@@ -78,19 +78,26 @@ public class HistoryActivity extends AppCompatActivity implements MyAdapter.IEve
 
     @Override
     public void onClickPlay(int pos) {
-        Toast.makeText(HistoryActivity.this,"Test",Toast.LENGTH_SHORT).show();
+        Toast.makeText(HistoryActivity.this,"Will now Play",Toast.LENGTH_SHORT).show();
         clickedRec=mySongs.get(pos).getNotes();
         Log.d("ssss Clicked Record",clickedRec.toString());
         finish();
         Intent intent=new Intent(HistoryActivity.this,FrontPageActivity.class);
         intent.putExtra("song",clickedRec);
+        intent.putExtra("function",1);
         startActivity(intent);
     }
 
 
     @Override
     public void onClickGuide(int pos) {
-        Toast.makeText(HistoryActivity.this,"Test2",Toast.LENGTH_SHORT).show();
+        Toast.makeText(HistoryActivity.this,"Your Turn!",Toast.LENGTH_SHORT).show();
+        clickedRec=mySongs.get(pos).getNotes();
+        finish();
+        Intent intent=new Intent(HistoryActivity.this,FrontPageActivity.class);
+        intent.putExtra("song",clickedRec);
+        intent.putExtra("function",2);
+        startActivity(intent);
 
     }
 

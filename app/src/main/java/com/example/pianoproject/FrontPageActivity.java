@@ -21,6 +21,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.SeekBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -45,7 +46,6 @@ public class FrontPageActivity extends AppCompatActivity
     private SoundPool soundPool;
     private float floatSpeed = 1.0f;
 
-    private int cnt = 0;
 
     private ArrayList<String> recording=new ArrayList<>();
     private ArrayList<String> recFromHistory=new ArrayList<>();
@@ -108,6 +108,7 @@ public class FrontPageActivity extends AppCompatActivity
     Runnable timerRunnable1 = new Runnable() {
         @Override
         public void run() {
+            TextView textView = findViewById(R.id.tavOnTop);
             if(i<recording.size()){
                 int k = notesMap.get(recording.get(i));
                 if(last!=-1) {
@@ -119,6 +120,12 @@ public class FrontPageActivity extends AppCompatActivity
                 last=id;
                 ib.setImageResource(R.drawable.blue);
                 soundPool.play(arrSoundId[notesMap.get(recording.get(i))],1,1,1,0,floatSpeed);
+                if(getIntent().getExtras()!=null){
+                    textView.setText((CharSequence)((ArrayList<String>) getIntent().getExtras().get("song")).get(i));
+                }
+                else {
+                    textView.setText((CharSequence)(recording.get(i)));
+                }
                 i++;
                 timerHandler1.postDelayed(this, 250);
 
@@ -127,6 +134,7 @@ public class FrontPageActivity extends AppCompatActivity
                 timerHandler1.removeCallbacks(timerRunnable1);
                 ImageButton ib1=findViewById(last);
                 ib1.setImageResource(0);
+                textView.setText("");
             }
         }
     };
@@ -286,6 +294,7 @@ public class FrontPageActivity extends AppCompatActivity
     private void playRecords() {
         i = 0;
         last=-1;
+        TextView textView = findViewById(R.id.tavOnTop);
         timerHandler1.postDelayed(timerRunnable1, 250);
     }
 
@@ -301,7 +310,6 @@ public class FrontPageActivity extends AppCompatActivity
         SoundPool.Builder builder = new SoundPool.Builder();
         builder.setMaxStreams(6);
         soundPool = builder.build();
-        cnt = 0;
         for (int i = 0; i < arrSoundId.length; i++) {
             arrSoundId[i] = soundPool.load(this, arrTones[i], 1);
         }
@@ -312,12 +320,34 @@ public class FrontPageActivity extends AppCompatActivity
 
     @Override
     public void onLoadComplete(SoundPool soundPool, int sampleId, int status) {
-        cnt++;
         if(getIntent().getExtras()!=null){
-            recFromHistory=(ArrayList<String>) getIntent().getExtras().get("song");
-            if(recFromHistory!=null){
-                recording=recFromHistory;
-                playRecords();
+
+            TextView textView = findViewById(R.id.tavOnTop);
+            //if user pressed red button
+            if((int)getIntent().getExtras().get("function")==1){
+                recFromHistory=(ArrayList<String>) getIntent().getExtras().get("song");
+                if(recFromHistory!=null){
+                    recording=recFromHistory;
+                    playRecords();
+
+                }
+
+            }
+            else if ((int)getIntent().getExtras().get("function")==2) {
+                recFromHistory=(ArrayList<String>) getIntent().getExtras().get("song");
+                textView.setText("Orange");
+                if(recFromHistory!=null){
+                    recording=recFromHistory;
+                    //TextView textView = findViewById(R.id.textView);
+
+
+//                    for(int i=0;i<recording.size();i++){
+//                        textView.setText(recFromHistory.get(i));
+//
+//                    }
+
+
+                }
             }
         }
     }
@@ -334,12 +364,14 @@ public class FrontPageActivity extends AppCompatActivity
 
 
     public boolean onTouch(View v, MotionEvent event) {
+        TextView textView = findViewById(R.id.tavOnTop);
         Log.d("TOUCH", event.toString());
         int pos = map.get(v.getId());
         if (event.getAction() == MotionEvent.ACTION_DOWN){
             ImageButton aButton = (ImageButton)v;
             aButton.setImageResource(R.drawable.blue);
             soundPool.play(arrSoundId[pos],volumeLeft,volumeRight,1,0,floatSpeed);
+            textView.setText((CharSequence)tavsMap.get(pos).toString());
             recording.add(tavsMap.get(pos));
         }
         else if (event.getAction()== MotionEvent.ACTION_UP){

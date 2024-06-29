@@ -20,8 +20,8 @@
             android:layout_width="70dp"
             android:layout_height="wrap_content"
             android:background="#303030"
-            android:scrollbarSize="1dp"
             android:scaleType="centerCrop"
+            android:scrollbarSize="1dp"
             app:srcCompat="@drawable/rec" />
 
         <ImageButton
@@ -32,6 +32,16 @@
             android:scaleType="centerCrop"
             app:srcCompat="@drawable/helpbutton" />
 
+        <TextView
+            android:id="@+id/tavOnTop"
+            android:layout_width="70dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center_horizontal"
+            android:text="Yo"
+            android:textAlignment="center"
+            android:textColor="#CF234B"
+            android:textSize="35sp" />
+
 
     </androidx.appcompat.widget.Toolbar>
 
@@ -40,8 +50,8 @@
         android:id="@+id/pianoKeysLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="85dp"
         android:layout_alignParentBottom="true"
+        android:layout_marginTop="85dp"
         android:orientation="vertical">
 
 
@@ -127,7 +137,6 @@
                     android:id="@+id/b4"
                     style="@style/WhiteKey"
                     android:layout_height="match_parent" />
-
 
 
             </LinearLayout>
@@ -231,12 +240,12 @@
 
     <SeekBar
         android:id="@+id/seekBar"
+        android:layout_width="200dp"
+        android:layout_height="60dp"
         android:layout_below="@id/toolbar"
         android:layout_centerHorizontal="true"
-        android:min="0"
         android:max="100"
-        android:layout_width="200dp"
-        android:layout_height="60dp" />
+        android:min="0" />
 
     <ImageView
         android:id="@+id/volume"
