@@ -5,12 +5,16 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
+import androidx.appcompat.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.media.SoundPool;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -18,8 +22,10 @@ import android.widget.SeekBar;
 import android.widget.Toast;
 
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class FrontPageActivity extends AppCompatActivity
         implements View.OnClickListener, SoundPool.OnLoadCompleteListener,
@@ -32,6 +38,8 @@ public class FrontPageActivity extends AppCompatActivity
     private float floatSpeed = 1.0f;
 
     private int cnt = 0;
+
+    private ArrayList<String> recording=new ArrayList<>();
 
 
     private Integer[] arrBtnId = {R.id.c3, R.id.d3,
@@ -46,11 +54,13 @@ public class FrontPageActivity extends AppCompatActivity
 
     private Map<Integer,Integer> map=new HashMap<>();
     private Map<String,Integer> notesMap=new HashMap<>();
+    private Map<Integer,String> tavsMap=new HashMap<>();
 
     String[] tune;
     int i = 0;
     int last=-1;
     Handler timerHandler = new Handler();
+    Handler timerHandler1 = new Handler();
     Runnable timerRunnable = new Runnable() {
         @Override
         public void run() {
@@ -71,6 +81,32 @@ public class FrontPageActivity extends AppCompatActivity
             }
             else {
                 timerHandler.removeCallbacks(timerRunnable);
+                ImageButton ib1=findViewById(last);
+                ib1.setImageResource(0);
+            }
+        }
+    };
+
+    Runnable timerRunnable1 = new Runnable() {
+        @Override
+        public void run() {
+            if(i<recording.size()){
+                int k = notesMap.get(recording.get(i));
+                if(last!=-1) {
+                    ImageButton ib1 = findViewById(last);
+                    ib1.setImageResource(0);
+                }
+                int id=arrBtnId[k];
+                ImageButton ib=findViewById(id);
+                last=id;
+                ib.setImageResource(R.drawable.blue);
+                soundPool.play(arrSoundId[notesMap.get(recording.get(i))],1,1,1,0,floatSpeed);
+                i++;
+                timerHandler1.postDelayed(this, 250);
+
+            }
+            else{
+                timerHandler1.removeCallbacks(timerRunnable1);
                 ImageButton ib1=findViewById(last);
                 ib1.setImageResource(0);
             }
@@ -100,6 +136,7 @@ public class FrontPageActivity extends AppCompatActivity
             map.put(arrBtnId[i],i);
         }
         notesMap  = createNotesMap();
+        tavsMap = createTavsMap();
 
         soundPool = createSoundPool();
         soundPool.setOnLoadCompleteListener(this);
@@ -140,16 +177,55 @@ public class FrontPageActivity extends AppCompatActivity
                 if(off) {
                     recordBtn.setImageResource(R.drawable.rec_active);
                     Toast.makeText(FrontPageActivity.this,"Recording has Started", Toast.LENGTH_SHORT).show();
+
+                    recording.clear();
+
                 }
 
                 else if (!off) {
                     recordBtn.setImageResource(R.drawable.rec);
-                    Toast.makeText(FrontPageActivity.this,"Recording has Stopped", Toast.LENGTH_SHORT).show();
+                    if(recording.size()>0) {
+                        Toast.makeText(FrontPageActivity.this, "Recording has Stopped", Toast.LENGTH_SHORT).show();
+                        showImageSourceDialog();
+                    }
+                    else
+                        Toast.makeText(FrontPageActivity.this, "Nothing was Recorded", Toast.LENGTH_SHORT).show();
                 }
 
                 off = !off;
             }
         });
+    }
+    private void showImageSourceDialog() {
+        Dialog img_dialog = new Dialog(FrontPageActivity.this);
+        img_dialog.setContentView(R.layout.img_upload_dialog);
+        Objects.requireNonNull(img_dialog.getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        img_dialog.setCancelable(false);
+
+        Button btn_dia_play = img_dialog.findViewById(R.id.btn_dia_play);
+        ImageButton ib_dia_delete = img_dialog.findViewById(R.id.ib_dia_delete);
+        ImageButton ib_dia_save = img_dialog.findViewById(R.id.ib_dia_save);
+        btn_dia_play.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                playRecords();
+            }
+        });
+        ib_dia_delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                img_dialog.dismiss();
+            }
+        });
+        ib_dia_save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //save to firebase/internal storage
+                img_dialog.dismiss();
+            }
+        });
+        img_dialog.show();
+
     }
 
     @Override
@@ -162,6 +238,12 @@ public class FrontPageActivity extends AppCompatActivity
 
     }
 
+
+    private void playRecords() {
+        i = 0;
+        last=-1;
+        timerHandler1.postDelayed(timerRunnable1, 0);
+    }
 
     private void playTunes(String[] tune) {
         this.tune = tune;
@@ -180,6 +262,39 @@ public class FrontPageActivity extends AppCompatActivity
             arrSoundId[i] = soundPool.load(this, arrTones[i], 1);
         }
         return soundPool;
+    }
+
+    private Map<Integer,String> createTavsMap(){
+        Map<Integer,String> notesMap = new HashMap<>();
+        notesMap.put(0,"c3");
+        notesMap.put(1,"d3");
+        notesMap.put(2,"e3");
+        notesMap.put(3,"f3");
+        notesMap.put(4,"g3");
+        notesMap.put(5,"a3");
+        notesMap.put(6,"b3");
+
+        notesMap.put(7,"c4");
+        notesMap.put(8,"d4");
+        notesMap.put(9,"e4");
+        notesMap.put(10,"f4");
+        notesMap.put(11,"g4");
+        notesMap.put(12,"a4");
+        notesMap.put(13,"b4");
+
+        notesMap.put(14,"db3");
+        notesMap.put(15,"eb3");
+        notesMap.put(16,"gb3");
+        notesMap.put(17,"ab3");
+        notesMap.put(18,"bb3");
+
+        notesMap.put(19,"db4");
+        notesMap.put(20,"eb4");
+        notesMap.put(21,"gb4");
+        notesMap.put(22,"ab4");
+        notesMap.put(23,"bb4");
+
+        return notesMap;
     }
 
     private Map<String, Integer> createNotesMap(){
@@ -241,6 +356,7 @@ public class FrontPageActivity extends AppCompatActivity
             ImageButton aButton = (ImageButton)v;
             aButton.setImageResource(R.drawable.blue);
             soundPool.play(arrSoundId[pos ],volumeLeft,volumeRight,1,0,floatSpeed);
+            recording.add(tavsMap.get(pos));
         }
         else if (event.getAction()== MotionEvent.ACTION_UP){
             ImageButton aButton = (ImageButton)v;
