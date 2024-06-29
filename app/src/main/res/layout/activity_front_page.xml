@@ -229,26 +229,6 @@
     </LinearLayout>
 
 
-    <ImageButton
-        android:id="@+id/leftArrow"
-        android:layout_width="64dp"
-        android:layout_height="64dp"
-        android:layout_below="@id/toolbar"
-        android:layout_alignParentLeft="true"
-        android:rotationY="180"
-        android:scaleType="fitCenter"
-        android:src="@drawable/move_keys"
-        android:text="Left" />
-
-    <ImageButton
-        android:id="@+id/rightArrow"
-        android:layout_width="64dp"
-        android:layout_height="64dp"
-        android:layout_below="@id/toolbar"
-        android:scaleType="fitCenter"
-        android:src="@drawable/move_keys"
-        android:layout_alignParentRight="true" />
-
     <SeekBar
         android:id="@+id/seekBar"
         android:layout_below="@id/toolbar"
