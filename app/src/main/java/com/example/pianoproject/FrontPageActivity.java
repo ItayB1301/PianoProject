@@ -377,6 +377,7 @@ public class FrontPageActivity extends AppCompatActivity
         else if (event.getAction()== MotionEvent.ACTION_UP){
             ImageButton aButton = (ImageButton)v;
             aButton.setImageResource(0);
+            textView.setText("");
         }
 
 
