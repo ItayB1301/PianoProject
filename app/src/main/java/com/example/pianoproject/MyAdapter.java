@@ -26,32 +26,32 @@ public class MyAdapter extends ArrayAdapter<Song> {
     List<Song> list;
     IEvents listener;
 
-    public MyAdapter(@NonNull Context context, int resource,int textViewResourceId, @NonNull ArrayList<Song> objects) {
-        super(context, resource,textViewResourceId, objects);
-        this.context=context;
-        this.resource=resource;
-        this.textViewResourceID=textViewResourceId;
-        this.list=objects;
+    public MyAdapter(@NonNull Context context, int resource, int textViewResourceId, @NonNull ArrayList<Song> objects) {
+        super(context, resource, textViewResourceId, objects);
+        this.context = context;
+        this.resource = resource;
+        this.textViewResourceID = textViewResourceId;
+        this.list = objects;
     }
 
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
 
-        LayoutInflater layoutInflater= ((Activity)context).getLayoutInflater();
-        View view=layoutInflater.inflate(resource,parent,false);
-        @SuppressLint({"MissingInflatedId","LocalSuppress"})
+        LayoutInflater layoutInflater = ((Activity) context).getLayoutInflater();
+        View view = layoutInflater.inflate(resource, parent, false);
+        @SuppressLint({"MissingInflatedId", "LocalSuppress"})
         TextView tvTitle = (TextView) view.findViewById(R.id.tvTitle);
-        Song temp=list.get(position);
+        Song temp = list.get(position);
         tvTitle.setText(getItem(position).getTitle());
 
-        ImageButton play=view.findViewById(R.id.imagePlay);
-        ImageButton guide=view.findViewById(R.id.imageGuide);
+        ImageButton play = view.findViewById(R.id.imagePlay);
+        ImageButton guide = view.findViewById(R.id.imageGuide);
 
         play.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(listener!=null){
+                if (listener != null) {
                     listener.onClickPlay(position);
                 }
             }
@@ -60,7 +60,7 @@ public class MyAdapter extends ArrayAdapter<Song> {
         guide.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(listener!=null){
+                if (listener != null) {
                     listener.onClickGuide(position);
                 }
             }
@@ -70,12 +70,13 @@ public class MyAdapter extends ArrayAdapter<Song> {
         return view;
     }
 
-    public void setOnClickListener(IEvents listener){
-        this.listener=listener;
+    public void setOnClickListener(IEvents listener) {
+        this.listener = listener;
     }
 
-    interface IEvents{
+    interface IEvents {
         void onClickPlay(int pos);
+
         void onClickGuide(int pos);
     }
 

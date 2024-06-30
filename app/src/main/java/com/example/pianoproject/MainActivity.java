@@ -20,14 +20,14 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.gson.Gson;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener{
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private SharedPreferences sp;
     FirebaseAuth firebaseAuth;
     FirebaseUser currentUser;
     MediaPlayer mediaPlayer;
 
-    EditText email,pass;
+    EditText email, pass;
 
     @Override
     protected void onPause() {
@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        firebaseAuth= FirebaseAuth.getInstance();
+        firebaseAuth = FirebaseAuth.getInstance();
 
         sp = getSharedPreferences("User", MODE_PRIVATE);
         String json = sp.getString("User", "");
@@ -50,8 +50,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             Intent intent = new Intent(MainActivity.this, FrontPageActivity.class);
             startActivity(intent);
             finish();
-        }
-        else {
+        } else {
 
             //media player with a song
             mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.opening_music);
@@ -69,34 +68,34 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    public void loginUser(){
+    public void loginUser() {
         String m = email.getText().toString();
         String p = pass.getText().toString();
-        if(p.equals("")||m.equals(""))
+        if (p.equals("") || m.equals(""))
             return;
         firebaseAuth.signInWithEmailAndPassword(m, p)
-                        .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                if(task.isSuccessful()){
-                                    String uid=firebaseAuth.getCurrentUser().getUid();
-                                    sp=getSharedPreferences("User",MODE_PRIVATE);
-                                    SharedPreferences.Editor editor=sp.edit();
-                                    editor.putString("User",uid);
-                                    editor.apply();
-                                    Intent intent = new Intent(MainActivity.this,FrontPageActivity.class);
-                                    startActivity(intent);
-                                    finish();
-                                }
-                            }
-                        });
-   }
+                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            String uid = firebaseAuth.getCurrentUser().getUid();
+                            sp = getSharedPreferences("User", MODE_PRIVATE);
+                            SharedPreferences.Editor editor = sp.edit();
+                            editor.putString("User", uid);
+                            editor.apply();
+                            Intent intent = new Intent(MainActivity.this, FrontPageActivity.class);
+                            startActivity(intent);
+                            finish();
+                        }
+                    }
+                });
+    }
 
     @Override
-    public void onClick(View v){
-        if (v.getId()==R.id.login)
+    public void onClick(View v) {
+        if (v.getId() == R.id.login)
             loginUser();
-        else if(v.getId()==R.id.register){
+        else if (v.getId() == R.id.register) {
             Intent intent = new Intent(MainActivity.this, RegisterActivity.class);
             startActivity(intent);
         }

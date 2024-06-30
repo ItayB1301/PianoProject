@@ -7,7 +7,9 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
+
 import androidx.appcompat.app.AlertDialog;
+
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.media.SoundPool;
@@ -40,62 +42,63 @@ public class FrontPageActivity extends AppCompatActivity
         implements View.OnClickListener, SoundPool.OnLoadCompleteListener,
         View.OnTouchListener {
 
-    private boolean off=true;
-    private float volumeLeft=0.5f;
-    private float volumeRight=0.5f;
+    private int indexLearning = 0;
+    private boolean isLearning = false;
+    private boolean off = true;
+    private float volumeLeft = 0.5f;
+    private float volumeRight = 0.5f;
     private SoundPool soundPool;
     private float floatSpeed = 1.0f;
 
 
-    private ArrayList<String> recording=new ArrayList<>();
-    private ArrayList<String> recFromHistory=new ArrayList<>();
+    private ArrayList<String> recording = new ArrayList<>();
+    private ArrayList<String> recFromHistory = new ArrayList<>();
 
 
     private Integer[] arrBtnId = {R.id.c3, R.id.d3,
-            R.id.e3,R.id.f3,R.id.g3,R.id.a3,R.id.b3,R.id.c4,R.id.d4,R.id.e4,R.id.f4,R.id.g4,R.id.a4,R.id.b4,R.id.db3,R.id.eb3,R.id.gb3,R.id.ab3,R.id.bb3,R.id.db4,R.id.eb4,R.id.gb4,R.id.ab4,R.id.bb4};
+            R.id.e3, R.id.f3, R.id.g3, R.id.a3, R.id.b3, R.id.c4, R.id.d4, R.id.e4, R.id.f4, R.id.g4, R.id.a4, R.id.b4, R.id.db3, R.id.eb3, R.id.gb3, R.id.ab3, R.id.bb3, R.id.db4, R.id.eb4, R.id.gb4, R.id.ab4, R.id.bb4};
 
-    boolean[] pressed = new boolean[ arrBtnId.length];
+    boolean[] pressed = new boolean[arrBtnId.length];
 
     private Integer[] arrTones = {R.raw.c3, R.raw.d3,
-            R.raw.e3,R.raw.f3,R.raw.g3,R.raw.a3,R.raw.b3,R.raw.c4,R.raw.d4,R.raw.e4,R.raw.f4,R.raw.g4,R.raw.a4,R.raw.b4,R.raw.db3,R.raw.eb3,R.raw.gb3,R.raw.ab3,R.raw.bb3,R.raw.db4,R.raw.eb4,R.raw.gb4,R.raw.ab4,R.raw.bb4};
+            R.raw.e3, R.raw.f3, R.raw.g3, R.raw.a3, R.raw.b3, R.raw.c4, R.raw.d4, R.raw.e4, R.raw.f4, R.raw.g4, R.raw.a4, R.raw.b4, R.raw.db3, R.raw.eb3, R.raw.gb3, R.raw.ab3, R.raw.bb3, R.raw.db4, R.raw.eb4, R.raw.gb4, R.raw.ab4, R.raw.bb4};
 
     private Integer[] arrSoundId = new Integer[arrTones.length];
 
-    private Map<Integer,Integer> map=new HashMap<>();
-    private Map<String,Integer> notesMap=new HashMap<>();
-    private Map<Integer,String> tavsMap=new HashMap<>();
+    private Map<Integer, Integer> map = new HashMap<>();
+    private Map<String, Integer> notesMap = new HashMap<>();
+    private Map<Integer, String> tavsMap = new HashMap<>();
 
     String[] tune;
     int i = 0;
-    int last=-1;
+    int last = -1;
     Handler timerHandler = new Handler();
     Handler timerHandler1 = new Handler();
     Runnable timerRunnable = new Runnable() {
         @Override
         public void run() {
-            if (i < tune.length){
+            if (i < tune.length) {
                 int k = notesMap.get(tune[i]);
-                if(last!=-1){
-                    ImageButton ib1=findViewById(last);
+                if (last != -1) {
+                    ImageButton ib1 = findViewById(last);
                     ib1.setImageResource(0);
                 }
-                int id=arrBtnId[k];
-                ImageButton ib=findViewById(id);
-                last=id;
+                int id = arrBtnId[k];
+                ImageButton ib = findViewById(id);
+                last = id;
                 ib.setImageResource(R.drawable.blue);
-                soundPool.play(arrSoundId[notesMap.get(tune[i])],1,1,1,0,floatSpeed);
+                soundPool.play(arrSoundId[notesMap.get(tune[i])], 1, 1, 1, 0, floatSpeed);
                 i++;
                 timerHandler.postDelayed(this, 250);
 
-            }
-            else {
+            } else {
                 timerHandler.removeCallbacks(timerRunnable);
-                ImageButton ib1=findViewById(last);
+                ImageButton ib1 = findViewById(last);
                 ib1.setImageResource(0);
-                if(getIntent().getExtras()!=null){
-                    recFromHistory=(ArrayList<String>) getIntent().getExtras().get("song");
-                    if(recFromHistory!=null){
-                        recording=recFromHistory;
+                if (getIntent().getExtras() != null) {
+                    recFromHistory = (ArrayList<String>) getIntent().getExtras().get("song");
+                    if (recFromHistory != null) {
+                        recording = recFromHistory;
                         playRecords();
                         timerHandler.postDelayed(this, 250);
                     }
@@ -109,30 +112,24 @@ public class FrontPageActivity extends AppCompatActivity
         @Override
         public void run() {
             TextView textView = findViewById(R.id.tavOnTop);
-            if(i<recording.size()){
+            if (i < recording.size()) {
                 int k = notesMap.get(recording.get(i));
-                if(last!=-1) {
+                if (last != -1) {
                     ImageButton ib1 = findViewById(last);
                     ib1.setImageResource(0);
                 }
-                int id=arrBtnId[k];
-                ImageButton ib=findViewById(id);
-                last=id;
+                int id = arrBtnId[k];
+                ImageButton ib = findViewById(id);
+                last = id;
                 ib.setImageResource(R.drawable.blue);
-                soundPool.play(arrSoundId[notesMap.get(recording.get(i))],1,1,1,0,floatSpeed);
-                if(getIntent().getExtras()!=null){
-                    textView.setText((CharSequence)((ArrayList<String>) getIntent().getExtras().get("song")).get(i));
-                }
-                else {
-                    textView.setText((CharSequence)(recording.get(i)));
-                }
+                soundPool.play(arrSoundId[notesMap.get(recording.get(i))], 1, 1, 1, 0, floatSpeed);
+                textView.setText((CharSequence) (recording.get(i)));
                 i++;
                 timerHandler1.postDelayed(this, 250);
 
-            }
-            else{
-                timerHandler1.removeCallbacks(timerRunnable1);
-                ImageButton ib1=findViewById(last);
+            } else {
+                //timerHandler1.removeCallbacks(timerRunnable1);
+                ImageButton ib1 = findViewById(last);
                 ib1.setImageResource(0);
                 textView.setText("");
             }
@@ -153,31 +150,30 @@ public class FrontPageActivity extends AppCompatActivity
         for (int i = 0; i < arrBtnId.length; i++) {
             findViewById(arrBtnId[i]).setOnClickListener(this);
             findViewById(arrBtnId[i]).setOnTouchListener(this);
-            map.put(arrBtnId[i],i);
+            map.put(arrBtnId[i], i);
         }
 
 
-
-        for(int i=0;i<arrBtnId.length;i++){
-            map.put(arrBtnId[i],i);
+        for (int i = 0; i < arrBtnId.length; i++) {
+            map.put(arrBtnId[i], i);
         }
-        notesMap  = MyData.createNotesMap();
+        notesMap = MyData.createNotesMap();
         tavsMap = MyData.createTavsMap();
 
         soundPool = createSoundPool();
         soundPool.setOnLoadCompleteListener(this);
 
         SeekBar sb = findViewById(R.id.seekBar);
-        sb.setProgress((int)(volumeLeft * 100));
+        sb.setProgress((int) (volumeLeft * 100));
 
-        ImageView volume=findViewById(R.id.volume);
+        ImageView volume = findViewById(R.id.volume);
         sb.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                Log.e("FRONT", ""+progress);
-                volumeLeft = progress/100.0f;
-                volumeRight = progress/100.0f;
-                if(progress==0)
+                Log.e("FRONT", "" + progress);
+                volumeLeft = progress / 100.0f;
+                volumeRight = progress / 100.0f;
+                if (progress == 0)
                     volume.setImageResource(R.drawable.volume_off);
                 else
                     volume.setImageResource(R.drawable.volume);
@@ -195,35 +191,32 @@ public class FrontPageActivity extends AppCompatActivity
             }
         });
 
-        ImageButton history =findViewById(R.id.helpbutton);
+        ImageButton history = findViewById(R.id.helpbutton);
 
         history.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(FrontPageActivity.this,HistoryActivity.class));
+                startActivity(new Intent(FrontPageActivity.this, HistoryActivity.class));
             }
         });
 
-        ImageButton record=findViewById(R.id.rec);
+        ImageButton record = findViewById(R.id.rec);
         record.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ImageButton recordBtn = (ImageButton)v;
-                if(off) {
+                ImageButton recordBtn = (ImageButton) v;
+                if (off) {
                     recordBtn.setImageResource(R.drawable.rec_active);
-                    Toast.makeText(FrontPageActivity.this,"Recording has Started", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(FrontPageActivity.this, "Recording has Started", Toast.LENGTH_SHORT).show();
 
                     recording.clear();
 
-                }
-
-                else if (!off) {
+                } else if (!off) {
                     recordBtn.setImageResource(R.drawable.rec);
-                    if(recording.size()>0) {
+                    if (recording.size() > 0) {
                         Toast.makeText(FrontPageActivity.this, "Recording has Stopped", Toast.LENGTH_SHORT).show();
                         showImageSourceDialog();
-                    }
-                    else
+                    } else
                         Toast.makeText(FrontPageActivity.this, "Nothing was Recorded", Toast.LENGTH_SHORT).show();
                 }
 
@@ -257,12 +250,12 @@ public class FrontPageActivity extends AppCompatActivity
             @Override
             public void onClick(View v) {
                 //save to firebase/internal storage
-                DatabaseReference songRef= FirebaseDatabase.getInstance().getReference("Songs");
+                DatabaseReference songRef = FirebaseDatabase.getInstance().getReference("Songs");
                 songRef.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        String songTitle="song_"+String.valueOf (snapshot.getChildrenCount()+1);
-                        Song song=new Song(songTitle,recording);
+                        String songTitle = "song_" + String.valueOf(snapshot.getChildrenCount() + 1);
+                        Song song = new Song(songTitle, recording);
                         songRef.child(song.getTitle()).setValue(song);
                         img_dialog.dismiss();
 
@@ -284,18 +277,13 @@ public class FrontPageActivity extends AppCompatActivity
     public void onClick(View v) {
 
 
-        int pos = map.get(v.getId());
-        v.setBackgroundColor(Color.GRAY);
-
-
     }
 
 
     private void playRecords() {
         i = 0;
-        last=-1;
-        TextView textView = findViewById(R.id.tavOnTop);
-        timerHandler1.postDelayed(timerRunnable1, 250);
+        last = -1;
+        timerHandler1.postDelayed(timerRunnable1, 0);
     }
 
     private void playTunes(String[] tune) {
@@ -317,34 +305,30 @@ public class FrontPageActivity extends AppCompatActivity
     }
 
 
-
     @Override
     public void onLoadComplete(SoundPool soundPool, int sampleId, int status) {
-        if(getIntent().getExtras()!=null){
+        if (getIntent().getExtras() != null) {
 
             TextView textView = findViewById(R.id.tavOnTop);
             //if user pressed red button
-            if((int)getIntent().getExtras().get("function")==1){
-                recFromHistory=(ArrayList<String>) getIntent().getExtras().get("song");
-                if(recFromHistory!=null){
-                    recording=recFromHistory;
+            if ((int) getIntent().getExtras().get("function") == 1) {
+                recFromHistory = (ArrayList<String>) getIntent().getExtras().get("song");
+                if (recFromHistory != null) {
+                    recording = recFromHistory;
                     playRecords();
 
                 }
-
             }
-            else if ((int)getIntent().getExtras().get("function")==2) {
-                recFromHistory=(ArrayList<String>) getIntent().getExtras().get("song");
-                textView.setText("Orange");
-                if(recFromHistory!=null){
-                    recording=recFromHistory;
-                    //TextView textView = findViewById(R.id.textView);
-
-
-//                    for(int i=0;i<recording.size();i++){
-//                        textView.setText(recFromHistory.get(i));
-//
-//                    }
+            //if user pressed orange button
+            else if ((int) getIntent().getExtras().get("function") == 2) {
+                recFromHistory = (ArrayList<String>) getIntent().getExtras().get("song");
+                if (recFromHistory != null) {
+                    indexLearning = 0;
+                    isLearning = true;
+                    textView.setText(recFromHistory.get(indexLearning));
+                    int id = notesMap.get(recFromHistory.get(indexLearning));
+                    ImageButton aButton = findViewById(arrBtnId[id]);
+                    aButton.setImageResource(R.drawable.blue);
 
 
                 }
@@ -355,29 +339,44 @@ public class FrontPageActivity extends AppCompatActivity
     @Override
     protected void onPause() {
         super.onPause();
-        if(soundPool != null) {
+        if (soundPool != null) {
             soundPool.release();
             soundPool = null;
         }
     }
 
 
-
     public boolean onTouch(View v, MotionEvent event) {
         TextView textView = findViewById(R.id.tavOnTop);
         Log.d("TOUCH", event.toString());
         int pos = map.get(v.getId());
-        if (event.getAction() == MotionEvent.ACTION_DOWN){
-            ImageButton aButton = (ImageButton)v;
+        if (event.getAction() == MotionEvent.ACTION_DOWN) {
+            ImageButton aButton = (ImageButton) v;
             aButton.setImageResource(R.drawable.blue);
-            soundPool.play(arrSoundId[pos],volumeLeft,volumeRight,1,0,floatSpeed);
-            textView.setText((CharSequence)tavsMap.get(pos).toString());
+            soundPool.play(arrSoundId[pos], volumeLeft, volumeRight, 1, 0, floatSpeed);
+            textView.setText((CharSequence) tavsMap.get(pos).toString());
             recording.add(tavsMap.get(pos));
-        }
-        else if (event.getAction()== MotionEvent.ACTION_UP){
-            ImageButton aButton = (ImageButton)v;
+        } else if (event.getAction() == MotionEvent.ACTION_UP) {
+            ImageButton aButton = (ImageButton) v;
             aButton.setImageResource(0);
             textView.setText("");
+
+
+            if (isLearning && recFromHistory != null) {
+                if (tavsMap.get(pos).equals(recFromHistory.get(indexLearning))) {
+                    indexLearning++;
+                    if (indexLearning < recFromHistory.size()) {
+                        textView.setText(recFromHistory.get(indexLearning));
+                        int id = notesMap.get(recFromHistory.get(indexLearning));
+                        ImageButton bButton = findViewById(arrBtnId[id]);
+                        bButton.setImageResource(R.drawable.blue);
+                    } else {
+                        isLearning = false;
+
+                    }
+                }
+
+            }
         }
 
 

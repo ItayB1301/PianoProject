@@ -34,37 +34,37 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        firebaseAuth= FirebaseAuth.getInstance();
+        firebaseAuth = FirebaseAuth.getInstance();
 
-        etFName=findViewById(R.id.firstname);
-        etLName=findViewById(R.id.lastname);
-        etPhone=findViewById(R.id.phone);
-        etEmail=findViewById(R.id.email);
-        etPass=findViewById(R.id.pass);
+        etFName = findViewById(R.id.firstname);
+        etLName = findViewById(R.id.lastname);
+        etPhone = findViewById(R.id.phone);
+        etEmail = findViewById(R.id.email);
+        etPass = findViewById(R.id.pass);
         ((Button) findViewById(R.id.btnRegister)).setOnClickListener(this);
         ((Button) findViewById(R.id.btnRegCancel)).setOnClickListener(this);
     }
 
     @Override
-    public void onClick(View v){
-        if(v.getId()==R.id.btnRegister) {
+    public void onClick(View v) {
+        if (v.getId() == R.id.btnRegister) {
             User user = userDataOk();
             if (user != null)
                 regUser(user, etPass.getText().toString());
-            else if (v.getId()==R.id.btnRegCancel)
+            else if (v.getId() == R.id.btnRegCancel)
                 finish();
         }
     }
 
-    public void regUser(User user, String pass){
-        firebaseAuth.createUserWithEmailAndPassword(user.getEmail(),pass).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+    public void regUser(User user, String pass) {
+        firebaseAuth.createUserWithEmailAndPassword(user.getEmail(), pass).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
-                if(task.isSuccessful()){
-                    Log.d("REG","createUserWithEmailAndPassword:success");
+                if (task.isSuccessful()) {
+                    Log.d("REG", "createUserWithEmailAndPassword:success");
                     user.setUid(Objects.requireNonNull(firebaseAuth.getCurrentUser().getUid()));
                     saveUserDB(user);
-                    Toast.makeText(RegisterActivity.this,"Successfully registered", Toast.LENGTH_LONG).show();
+                    Toast.makeText(RegisterActivity.this, "Successfully registered", Toast.LENGTH_LONG).show();
                     finish();
                 }
             }
@@ -72,36 +72,36 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     }
 
     private void saveUserDB(User user) {
-        userRef= FirebaseDatabase.getInstance().getReference("Users");
+        userRef = FirebaseDatabase.getInstance().getReference("Users");
         userRef.child(user.getUid()).setValue(user);
-        sp=getSharedPreferences("User",MODE_PRIVATE);
-        SharedPreferences.Editor editor=sp.edit();
-        editor.putString("User",user.getUid());
+        sp = getSharedPreferences("User", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sp.edit();
+        editor.putString("User", user.getUid());
         editor.apply();
     }
 
-    private User userDataOk(){
-        if(etFName.getText().toString().isEmpty() ||
-                etLName.getText().toString().isEmpty()||
-                etPhone.getText().toString().isEmpty()||
-                etEmail.getText().toString().isEmpty()||
-                etPass.getText().toString().isEmpty()){
-            Toast.makeText(RegisterActivity.this,"Missing data", Toast.LENGTH_LONG).show();
+    private User userDataOk() {
+        if (etFName.getText().toString().isEmpty() ||
+                etLName.getText().toString().isEmpty() ||
+                etPhone.getText().toString().isEmpty() ||
+                etEmail.getText().toString().isEmpty() ||
+                etPass.getText().toString().isEmpty()) {
+            Toast.makeText(RegisterActivity.this, "Missing data", Toast.LENGTH_LONG).show();
             return null;
         }
 
-        if(!etPhone.getText().toString().startsWith("0")||
-        etPhone.getText().toString().length()<10){
-            Toast.makeText(RegisterActivity.this,"Invalid phone number", Toast.LENGTH_LONG).show();
+        if (!etPhone.getText().toString().startsWith("0") ||
+                etPhone.getText().toString().length() < 10) {
+            Toast.makeText(RegisterActivity.this, "Invalid phone number", Toast.LENGTH_LONG).show();
             return null;
         }
 
-        if(etPass.getText().toString().length()<8){
-            Toast.makeText(RegisterActivity.this,"Password is too short", Toast.LENGTH_LONG).show();
+        if (etPass.getText().toString().length() < 8) {
+            Toast.makeText(RegisterActivity.this, "Password is too short", Toast.LENGTH_LONG).show();
             return null;
         }
 
-        User user = new User((etFName.getText().toString()),etLName.getText().toString(),etPhone.getText().toString(),etEmail.getText().toString());
+        User user = new User((etFName.getText().toString()), etLName.getText().toString(), etPhone.getText().toString(), etEmail.getText().toString());
         return user;
     }
 
