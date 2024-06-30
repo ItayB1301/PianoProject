@@ -249,7 +249,7 @@ public class FrontPageActivity extends AppCompatActivity
         ib_dia_save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //save to firebase/internal storage
+                //save to firebase
                 DatabaseReference songRef = FirebaseDatabase.getInstance().getReference("Songs");
                 songRef.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override

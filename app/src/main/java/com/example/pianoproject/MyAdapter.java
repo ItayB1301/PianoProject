@@ -26,7 +26,9 @@ public class MyAdapter extends ArrayAdapter<Song> {
     List<Song> list;
     IEvents listener;
 
-    public MyAdapter(@NonNull Context context, int resource, int textViewResourceId, @NonNull ArrayList<Song> objects) {
+    public MyAdapter(@NonNull Context context, int resource,
+                     int textViewResourceId,
+                     @NonNull ArrayList<Song> objects) {
         super(context, resource, textViewResourceId, objects);
         this.context = context;
         this.resource = resource;
@@ -36,7 +38,9 @@ public class MyAdapter extends ArrayAdapter<Song> {
 
     @NonNull
     @Override
-    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+    public View getView(int position,
+                        @Nullable View convertView,
+                        @NonNull ViewGroup parent) {
 
         LayoutInflater layoutInflater = ((Activity) context).getLayoutInflater();
         View view = layoutInflater.inflate(resource, parent, false);

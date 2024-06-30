@@ -3,6 +3,7 @@ package com.example.pianoproject;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -51,8 +52,9 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             User user = userDataOk();
             if (user != null)
                 regUser(user, etPass.getText().toString());
-            else if (v.getId() == R.id.btnRegCancel)
+            else if (v.getId() == R.id.btnRegCancel) {
                 finish();
+            }
         }
     }
 
