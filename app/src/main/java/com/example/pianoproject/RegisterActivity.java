@@ -59,18 +59,19 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     }
 
     public void regUser(User user, String pass) {
-        firebaseAuth.createUserWithEmailAndPassword(user.getEmail(), pass).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if (task.isSuccessful()) {
-                    Log.d("REG", "createUserWithEmailAndPassword:success");
-                    user.setUid(Objects.requireNonNull(firebaseAuth.getCurrentUser().getUid()));
-                    saveUserDB(user);
-                    Toast.makeText(RegisterActivity.this, "Successfully registered", Toast.LENGTH_LONG).show();
-                    finish();
-                }
-            }
-        });
+        firebaseAuth.createUserWithEmailAndPassword(user.getEmail(), pass).addOnCompleteListener
+                (this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            Log.d("REG", "createUserWithEmailAndPassword:success");
+                            user.setUid(Objects.requireNonNull(firebaseAuth.getCurrentUser().getUid()));
+                            saveUserDB(user);
+                            Toast.makeText(RegisterActivity.this, "Successfully registered", Toast.LENGTH_LONG).show();
+                            finish();
+                        }
+                    }
+                });
     }
 
     private void saveUserDB(User user) {
